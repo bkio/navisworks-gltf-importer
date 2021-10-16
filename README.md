@@ -13,7 +13,7 @@ Well, there are a lot of intermediate steps.
 Therefore it is not a fast solution. But if you find any better solution, please let me know.
 
 ## How to install?
-- Go to Releases folder
+- Go to Releases section
 - Download the Release_[version].zip you prefer.
 - Unzip the zip file content to 
 	- If you use Simulate C:\Program Files\Autodesk\Navisworks Simulate 2021\Plugins\GLTFImporterPlugin
