@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31313.79
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLTFImporterPlugin", "GLTFImporterPlugin\GLTFImporterPlugin.csproj", "{74CC3494-DE4C-4763-8D67-91E2E60BF6FE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0E9EB79D-7EE4-413D-886D-AEB4A04D0418} = {0E9EB79D-7EE4-413D-886D-AEB4A04D0418}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormatConverter", "FormatConverter\FormatConverter.csproj", "{0E9EB79D-7EE4-413D-886D-AEB4A04D0418}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Utility", "Utility\Utility.shproj", "{AAD7A2A8-0475-444A-9148-C32CA7A20C8A}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "JBUtility", "JUtility\JBUtility.shproj", "{56FE5985-5534-4B04-8779-EFD0DFBA9A78}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		JUtility\JUtility.projitems*{0e9eb79d-7ee4-413d-886d-aeb4a04d0418}*SharedItemsImports = 4
+		Utility\Utility.projitems*{0e9eb79d-7ee4-413d-886d-aeb4a04d0418}*SharedItemsImports = 4
+		JUtility\JUtility.projitems*{56fe5985-5534-4b04-8779-efd0dfba9a78}*SharedItemsImports = 13
+		Utility\Utility.projitems*{74cc3494-de4c-4763-8d67-91e2e60bf6fe}*SharedItemsImports = 4
+		Utility\Utility.projitems*{aad7a2a8-0475-444a-9148-c32ca7a20c8a}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{74CC3494-DE4C-4763-8D67-91E2E60BF6FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{74CC3494-DE4C-4763-8D67-91E2E60BF6FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{74CC3494-DE4C-4763-8D67-91E2E60BF6FE}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{74CC3494-DE4C-4763-8D67-91E2E60BF6FE}.Debug|x64.Build.0 = Debug|Any CPU
+		{74CC3494-DE4C-4763-8D67-91E2E60BF6FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{74CC3494-DE4C-4763-8D67-91E2E60BF6FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{74CC3494-DE4C-4763-8D67-91E2E60BF6FE}.Release|x64.ActiveCfg = Release|Any CPU
+		{74CC3494-DE4C-4763-8D67-91E2E60BF6FE}.Release|x64.Build.0 = Release|Any CPU
+		{0E9EB79D-7EE4-413D-886D-AEB4A04D0418}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E9EB79D-7EE4-413D-886D-AEB4A04D0418}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E9EB79D-7EE4-413D-886D-AEB4A04D0418}.Debug|x64.ActiveCfg = Debug|x64
+		{0E9EB79D-7EE4-413D-886D-AEB4A04D0418}.Debug|x64.Build.0 = Debug|x64
+		{0E9EB79D-7EE4-413D-886D-AEB4A04D0418}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E9EB79D-7EE4-413D-886D-AEB4A04D0418}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E9EB79D-7EE4-413D-886D-AEB4A04D0418}.Release|x64.ActiveCfg = Release|x64
+		{0E9EB79D-7EE4-413D-886D-AEB4A04D0418}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AD51AAC4-1AF8-42EC-BE27-300B363203DB}
+	EndGlobalSection
+EndGlobal
