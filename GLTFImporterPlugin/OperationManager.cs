@@ -95,20 +95,11 @@ namespace GLTFImporterPlugin
             try
             {
                 RootNNode = Autodesk.Navisworks.Api.Application.MainDocument.Models.First.RootItem;
+                PopulateMetadataInNavisworks(RootNNode, _RootBNode, _LogMessageAction);
             }
             catch (Exception e)
             {
-                _LogMessageAction?.Invoke("Fatal error: Access to the root node in Navisworks has failed with: " + e.Message);
-                return false;
-            }
-
-            try
-            {
-                PopulateMetadataInNavisworks(RootNNode, _RootBNode);
-            }
-            catch (Exception e)
-            {
-                _LogMessageAction?.Invoke("Fatal error: Populate metadata in Navisworks operation has failed with " + e.Message);
+                _LogMessageAction?.Invoke("Fatal error: Access to the root node and populate metadata in Navisworks has failed with: " + e.Message);
                 return false;
             }
 
@@ -131,9 +122,9 @@ namespace GLTFImporterPlugin
             return true;
         }
 
-        private void PopulateMetadataInNavisworks(Autodesk.Navisworks.Api.ModelItem _NNode, BNode _BNode)
+        private void PopulateMetadataInNavisworks(Autodesk.Navisworks.Api.ModelItem _NNode, BNode _BNode, Action<string> _LogMessageAction)
         {
-            ComApi.InwOpState10 ComState = ComApiBridge.State;
+            var ComState = ComApiBridge.State;
 
             if (_BNode.Metadata != null)
             {
@@ -149,11 +140,11 @@ namespace GLTFImporterPlugin
                 foreach (var Metadata in _BNode.Metadata)
                 {
                     //create a new property and add it to the category
-                    ComApi.InwOaProperty NMetadata = (ComApi.InwOaProperty)ComState.ObjectFactory(
-                    ComApi.nwEObjectType.eObjectType_nwOaProperty, null, null);
+                    var NMetadata = (ComApi.InwOaProperty)ComState.ObjectFactory(
+                        ComApi.nwEObjectType.eObjectType_nwOaProperty, null, null);
                     NMetadata.name = Metadata.Key;
                     NMetadata.UserName = Metadata.Key;
-                    NMetadata.value = Metadata.Value.Length == 0 ? " " : Metadata.Value;
+                    NMetadata.value = Metadata.Value;
                     NewPropertyCategory.Properties().Add(NMetadata);
                 }
 
@@ -161,16 +152,12 @@ namespace GLTFImporterPlugin
                 ComPropertyCategories.SetUserDefined(0, "GLTF", "GLTF", NewPropertyCategory);
             }
 
-            if (_BNode.Children != null)
+            int c = 0;
+
+            var ChildIterator = _NNode.Children.GetEnumerator();
+            while (ChildIterator.MoveNext())
             {
-                using (var ChildIterator = _NNode.Children.GetEnumerator())
-                {
-                    int i = 0;
-                    while (ChildIterator.MoveNext())
-                    {
-                        PopulateMetadataInNavisworks(ChildIterator.Current, _BNode.Children[i++]);
-                    }
-                }
+                PopulateMetadataInNavisworks(ChildIterator.Current, _BNode.Children[c++], _LogMessageAction);
             }
         }
     }

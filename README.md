@@ -7,7 +7,7 @@ Basically, provides a UI extension for user to pick up a GLTF file; takes care o
 
 ## Performance?
 Well, there are a lot of intermediate steps. 
-- First convert GLTF to FBX(ASCII); GLTF-Metadata to a custom binary format
+- First convert GLTF to FBX; GLTF-Metadata to a custom binary format
 - Read FBX in Navisworks
 - Read custom binary format and populate each node in Navisworks scene with its metadata.
 Therefore it is not a fast solution. But if you find any better solution, please let me know.

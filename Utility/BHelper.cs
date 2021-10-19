@@ -2,6 +2,9 @@
 
 using System;
 using System.IO;
+using System.IO.Compression;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace BUtility
 {
@@ -13,7 +16,11 @@ namespace BUtility
             {
                 using (var FStream = File.OpenWrite(_FilePath))
                 {
-                    _Root.Serialize(FStream);
+                    using (var Compressor = new DeflateStream(FStream, CompressionMode.Compress))
+                    {
+                        var Serializer = new XmlSerializer(typeof(BNode));
+                        Serializer.Serialize(XmlWriter.Create(Compressor), _Root);
+                    }
                 }
             }
             catch (Exception e)
@@ -30,7 +37,11 @@ namespace BUtility
             {
                 using (FileStream FStream = File.Open(_FilePath, FileMode.Open))
                 {
-                    _RootNode = BNode.Deserialize(FStream);
+                    using (var Decompressor = new DeflateStream(FStream, CompressionMode.Decompress))
+                    {
+                        var Deserializer = new XmlSerializer(typeof(BNode));
+                        _RootNode = (BNode)Deserializer.Deserialize(XmlReader.Create(Decompressor));
+                    }
                 }
             }
             catch (Exception e)

@@ -14,6 +14,11 @@ Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Utility", "Utility\Utility.
 EndProject
 Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "JBUtility", "JUtility\JBUtility.shproj", "{56FE5985-5534-4B04-8779-EFD0DFBA9A78}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2BC1DE42-58A6-43F4-AE14-BA1FBEA2C69C}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		JUtility\JUtility.projitems*{0e9eb79d-7ee4-413d-886d-aeb4a04d0418}*SharedItemsImports = 4

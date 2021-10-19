@@ -95,7 +95,7 @@ namespace FormatConverter
                 _LogAction?.Invoke("Building tree for metadata...");
                 RootNode = BHelper.BuildTreeFromGLTF(NodesJArray);
             }
-            
+
             _LogAction?.Invoke("Building metadata object from the tree for metadata and writing it to a file...");
             if (!BHelper.CompileToFile(MetadataBinaryPath, RootNode, _LogAction))
             {

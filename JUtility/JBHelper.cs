@@ -1,4 +1,6 @@
-﻿
+﻿/// MIT License, Copyright Burak Kara, burak@burak.io, https://en.wikipedia.org/wiki/MIT_License
+
+using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
 namespace BUtility
@@ -43,12 +45,11 @@ namespace BUtility
             {
                 var MJObject = (JObject)_NodeJObject["metadata"];
 
-                CurrentNode.Metadata = new BMetadata[MJObject.Count];
+                CurrentNode.Metadata = new List<BMetadata>(MJObject.Count);
 
-                int i = 0;
                 foreach (var Entry in MJObject)
                 {
-                    CurrentNode.Metadata[i++] = new BMetadata(Entry.Key, (string)Entry.Value);
+                    CurrentNode.Metadata.Add(new BMetadata(Entry.Key, (string)Entry.Value));
                 }
             }
 
@@ -56,13 +57,12 @@ namespace BUtility
             {
                 var CJArray = (JArray)_NodeJObject["children"];
 
-                CurrentNode.Children = new BNode[CJArray.Count];
+                CurrentNode.Children = new List<BNode>(CJArray.Count);
 
-                int i = 0;
                 foreach (JObject ChildNodeJObject in CJArray)
                 {
                     var ChildNode = BuildTreeFromJson(ChildNodeJObject);
-                    CurrentNode.Children[i++] = ChildNode;
+                    CurrentNode.Children.Add(ChildNode);
                 }
             }
 
@@ -73,8 +73,9 @@ namespace BUtility
         {
             if (_Nodes == null || _Nodes.Count == 0) return null;
 
-            var NodeMetadataList = new BMetadata[_Nodes.Count][];
+            var NodeMetadataList = new List<BMetadata>[_Nodes.Count];
             var NodeParentChildIndexMap = new int[_Nodes.Count][];
+            var bHasParentList = new bool[_Nodes.Count];
 
             int i = 0;
             foreach (JObject NodeJObject in _Nodes)
@@ -96,21 +97,25 @@ namespace BUtility
                 }
                 NodeParentChildIndexMap[i] = ChildrenIndexesArray;
 
-                BMetadata[] NodeMetadata = null;
+                List<BMetadata> NodeMetadata = null;
                 if (NodeJObject.TryGetValue("extras", out JToken ExtrasToken))
                 {
                     var Extras = (JObject)ExtrasToken;
                     if (Extras.Count > 0)
                     {
-                        NodeMetadata = new BMetadata[Extras.Count];
+                        NodeMetadata = new List<BMetadata>(Extras.Count);
 
-                        int j = 0;
                         foreach (var Extra in Extras)
                         {
-                            NodeMetadata[j++] = new BMetadata(Extra.Key, (string)Extra.Value);
+                            NodeMetadata.Add(new BMetadata(Extra.Key, (string)Extra.Value));
                         }
                     }
                 }
+                if (NodeMetadata == null)
+                {
+                    NodeMetadata = new List<BMetadata>();
+                }
+
                 NodeMetadataList[i] = NodeMetadata;
 
                 i++;
@@ -145,12 +150,12 @@ namespace BUtility
 
                 if (ChildrenIndexesArray == null)
                 {
+                    CurrentNode.Children = new List<BNode>();
                     continue; //Does not have child
                 }
 
-                CurrentNode.Children = new BNode[ChildrenIndexesArray.Length];
+                CurrentNode.Children = new List<BNode>(ChildrenIndexesArray.Length);
 
-                int j = 0;
                 foreach (var NodeChildIndex in ChildrenIndexesArray)
                 {
                     BNode ChildNode;
@@ -166,18 +171,16 @@ namespace BUtility
                     }
 
                     ChildNode.GLTFNodeIndex = NodeChildIndex;
-                    ChildNode.bHasParent = true;
+                    bHasParentList[NodeChildIndex] = true;
 
-                    CurrentNode.Children[j] = ChildNode;
-
-                    j++;
+                    CurrentNode.Children.Add(ChildNode);
                 }
             }
 
             BNode RootNode = null;
             foreach (var CurrentNode in TmpNodeMap)
             {
-                if (!CurrentNode.bHasParent)
+                if (!bHasParentList[CurrentNode.GLTFNodeIndex])
                 {
                     RootNode = CurrentNode;
                     break;
