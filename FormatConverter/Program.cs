@@ -46,10 +46,6 @@ namespace FormatConverter
 
             using (AssimpContext ImporterExporter = new AssimpContext())
             {
-                //This is how we add a configuration (each config is its own class)
-                NormalSmoothingAngleConfig Config = new NormalSmoothingAngleConfig(66.0f);
-                ImporterExporter.SetConfig(Config);
-
                 //This is how we add a logging callback 
                 using (LogStream LStream = new LogStream(delegate (string _Msg, string _UserData)
                 {
@@ -60,7 +56,7 @@ namespace FormatConverter
 
                     _LogAction?.Invoke("Importing GLTF geometry...");
 
-                    var Model = ImporterExporter.ImportFile(_GLTFPath, PostProcessPreset.TargetRealTimeMaximumQuality);
+                    var Model = ImporterExporter.ImportFile(_GLTFPath);
 
                     _LogAction?.Invoke("Import GLTF geometry operation has been completed.");
                     _LogAction?.Invoke("Exporting geometry to FBX...");
