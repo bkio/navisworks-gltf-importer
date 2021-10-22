@@ -19,5 +19,9 @@ Therefore it is not a fast solution. But if you find any better solution, please
 	- If you use Simulate C:\Program Files\Autodesk\Navisworks Simulate 2021\Plugins\GLTFImporterPlugin
 	- If you use Manage C:\Program Files\Autodesk\Navisworks Manage 2021\Plugins\GLTFImporterPlugin
 
+## How it works?
+- Upon opening copying the Plugin to the destination as described above, and opening the Navisworks; there will be a tab at the top called "Tool add-ins 1".
+- Click on "Tool add-ins 1" and there will be an option called "Import GLTF". Click on it and select the GLTF file. It will also import .bin files along with the main GLTF file.
+
 ## Compatibility?
 - Plugin is tested on Navisworks Simulate 2021, have not tested on the other editions.
